@@ -6,7 +6,7 @@ This is a subset of the original Visualization Quality Assessment that focuses e
 
 ## Features
 - **Compute Image Quality Assesment Metrics**: Assessment quality with multiple full and no reference metrics
-- **Multiple Color Spaces**: Support for different color spaces (e.g., RGB, HSV) to assess image quality in various domains.
+- **Multiple Color Spaces**: Support for different color spaces (e.g., RGB, HSV) to assess image quality in various domains
 - **Heatmaps Generation**: Generate metric maps visualizing the spatial distribution of metric values across the image
 - **Image Difference**: Generate thresholded difference images to highlight significant differences between two images
 - **Configurable via JSON**: Flexible configuration through JSON files for specifying image paths, metrics, color spaces, and output options.
