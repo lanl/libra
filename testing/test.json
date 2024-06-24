@@ -1,0 +1,6 @@
+{
+    "image1_path": "/home/pascalgrosset/magnetic_reconn_orig_blue.png",
+    "image2_path": "/home/pascalgrosset/magnetic_reconn_orig_blue_55psnr.png",
+    "output_path": "outputs",
+    "metrics": ["MSE", "SSIM", "PSNR"]
+}
