@@ -1,12 +1,11 @@
-# Visualization Quality Assessment: Libra
-
+# Project Libra
 
 ### Overview
-This is a subset of the original Visualization Quality Assessment that focuses exclusively on evaluation. This project provides tools to compute various image quality assessment (IQA) metrics, both full-reference and no-reference. The metrics are designed to evaluate the quality of images by comparing them to reference images (full-reference) or without any reference (no-reference). This project supports a wide range of metrics, suitable for different use cases in image processing and computer vision.
+This project provides tools to compute various image quality assessment (IQA) metrics, both full-reference and no-reference. The metrics are designed to evaluate the quality of images by comparing them to reference images (full-reference) or without any reference (no-reference). This project supports a wide range of metrics, suitable for different use cases in image processing and computer vision.
 
 ## Features
 - **Compute Image Quality Assesment Metrics**: Assessment quality with multiple full and no reference metrics
-- **Multiple Color Spaces**: Support for different color spaces (e.g., RGB, HSV) to assess image quality in various domains
+- **Multiple Color Spaces**: Support for different color spaces (e.g., RGB, HSV) to assess image quality in various domains.
 - **Heatmaps Generation**: Generate metric maps visualizing the spatial distribution of metric values across the image
 - **Image Difference**: Generate thresholded difference images to highlight significant differences between two images
 - **Configurable via JSON**: Flexible configuration through JSON files for specifying image paths, metrics, color spaces, and output options.
@@ -167,30 +166,3 @@ Implementation bassed on (https://github.com/chaofengc/IQA-PyTorch)
 pHash is a technique used for image retrieval and near-duplicate detection by generating a compact hash value that represents the perceptual content of an image. It calculates a hash based on the entire image, enabling comparisons to identify visually similar images. However, pHash does not directly measure perceptual image quality in terms of fidelity or distortion.
 
 Learn more about pHash on (https://en.wikipedia.org/wiki/Perceptual_hashing).
-
-
-This program is open source under the BSD-3 License.
-Redistribution and use in source and binary forms, with or without modification, are permitted
-provided that the following conditions are met:
-
-1.Redistributions of source code must retain the above copyright notice, this list of conditions and
-the following disclaimer.
- 
-2.Redistributions in binary form must reproduce the above copyright notice, this list of conditions
-and the following disclaimer in the documentation and/or other materials provided with the
-distribution.
- 
-3.Neither the name of the copyright holder nor the names of its contributors may be used to endorse
-or promote products derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
-IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
-CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
-OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
-OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

@@ -6,7 +6,6 @@ The thresholded difference image highlights the significant differences between 
 """
 
 import cv2
-import numpy as np
 
 def get_color_space_code(color_space_name):
     """
