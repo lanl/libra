@@ -2,5 +2,10 @@
     {
 		"name" : "Tacc_turbulence_tthresh",
 		"directory" : "data/tthresh_tacc_turb.cdb"
+	},
+
+    {
+		"name" : "Tacc_turbulence_tthresh_above40",
+		"directory" : "data/tthresh_tacc_turb_40.cdb"
 	}
 ]
