@@ -1,7 +1,7 @@
 matplotlib
 opencv-python-headless 
 numpy 
-matplotlib 
+matplotlib
 scikit-image 
 torch 
 piq 

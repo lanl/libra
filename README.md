@@ -1,7 +1,7 @@
 # Project Libra
 
 ### Overview
-This project provides tools to compute various image quality assessment (IQA) metrics, both full-reference and no-reference. The metrics are designed to evaluate the quality of images by comparing them to reference images (full-reference) or without any reference (no-reference). This project supports a wide range of metrics, suitable for different use cases in image processing and computer vision.
+This project provides tools to compute various image quality assessment (IQA) metrics. 
 
 ## Features
 - **Compute Image Quality Assesment Metrics**: Assessment quality with multiple full and no reference metrics
@@ -10,6 +10,17 @@ This project provides tools to compute various image quality assessment (IQA) me
 - **Image Difference**: Generate thresholded difference images to highlight significant differences between two images
 - **Configurable via JSON**: Flexible configuration through JSON files for specifying image paths, metrics, color spaces, and output options.
 
+It supports:
+- 18 [full-reference](#full-reference-metrics)
+- 5 [no-reference](#no-reference-metrics)
+- [image diffs](#image-quality-maps) in 8 different [color spaces](#compatible-color-spaces) with flexible thresholding
+
+
+The full reference and no reference metrics are from these python packages:
+- [piq](https://pypi.org/project/piq/)
+- [piya](https://pypi.org/project/pyiqa/)
+- [imageHash](https://pypi.org/project/ImageHash/)
+
 ### Examples:
 Some example comparison databases are available here: https://lanl.github.io/libra/
 
@@ -17,7 +28,7 @@ Some example comparison databases are available here: https://lanl.github.io/lib
 ## Installation
 1. Clone Repository
 ```
-git clone git@github.com:lanl/vizStudy.git
+git clone https://github.com/lanl/libra
 ```
 2. Install Dependencies
 ```sh
@@ -110,19 +121,16 @@ This example evaluates the visualization quality of isotropic turbulence dataset
 
 ### Compatible Color Spaces
 
-
-
-
-| **Color Space** | **Description**                                                                                                         | **Reference**                                                                                             |
-|-----------------|-------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| RGB             | Standard color space with three primary colors: Red, Green, and Blue. Commonly used in digital images and displays.    |(https://en.wikipedia.org/wiki/RGB_color_model)                                            |
-| HSV             | Stands for Hue, Saturation, and Value. Often used in image processing and computer vision because it separates color.    | (https://en.wikipedia.org/wiki/HSL_and_HSV)                                                |
-| HLS             | Stands for Hue, Lightness, and Saturation. Similar to HSV but with a different way of representing colors.              | (https://en.wikipedia.org/wiki/HSL_and_HSV)                                                |
-| LAB             | Consists of three components: Lightness (L*), a* (green to red), and b* (blue to yellow). Mimics human vision.           | (https://en.wikipedia.org/wiki/CIELAB_color_space)                                         |
-| XYZ             | A linear color space derived from the CIE 1931 color matching functions. Basis for many other color spaces.             | (https://en.wikipedia.org/wiki/CIE_1931_color_space)                                       |
-| LUV             | Similar to LAB but with a different chromaticity component. Used in color difference calculations and image analysis.   | (https://en.wikipedia.org/wiki/CIELUV)                                                     |
-| YCbCr           | Color space used in video compression. Separates the image into luminance (Y) and chrominance (Cb and Cr) components.   | (https://en.wikipedia.org/wiki/YCbCr)                                                    |
-| YUV             | Used in analog television and some digital video formats. Separates image into luminance (Y) and chrominance (U and V). | (https://en.wikipedia.org/wiki/YUV)                                                        |
+| **Color Space** | **Description** |
+|-----------------|------------------------------------------------------------------------------------------------------|
+| [RGB](https://en.wikipedia.org/wiki/RGB_color_model)  | Standard color space with three primary colors: Red, Green, and Blue. Commonly used in digital images and displays.    |
+| [HSV](https://en.wikipedia.org/wiki/HSL_and_HSV)         | Stands for Hue, Saturation, and Value. Often used in image processing and computer vision because it separates color. |
+| [HLS](https://en.wikipedia.org/wiki/HSL_and_HSV)         | Stands for Hue, Lightness, and Saturation. Similar to HSV but with a different way of representing colors.               | 
+| [LAB](https://en.wikipedia.org/wiki/CIELAB_color_space)  | Consists of three components: Lightness (L*), a* (green to red), and b* (blue to yellow). Mimics human vision.        |
+| [XYZ](https://en.wikipedia.org/wiki/CIE_1931_color_space)| A linear color space derived from the CIE 1931 color matching functions. Basis for many other color spaces.              |
+| [LUV](https://en.wikipedia.org/wiki/CIELUV)              | Similar to LAB but with a different chromaticity component. Used in color difference calculations and image analysis.  |
+| [YCbCr](https://en.wikipedia.org/wiki/YCbCr)             | Color space used in video compression. Separates the image into luminance (Y) and chrominance (Cb and Cr) components. |
+| [YUV](https://en.wikipedia.org/wiki/YUV)                 | Used in analog television and some digital video formats. Separates image into luminance (Y) and chrominance (U and V). |
 
 
 ## Image Quality Assesment Metrics
@@ -130,7 +138,7 @@ This example evaluates the visualization quality of isotropic turbulence dataset
 ### Full Reference Metrics
 
 
-| Metric       |  Implementation | Description                                                                 | Value Ranges                                          | 
+| Metric       |  Python Package | Description                                                                 | Value Ranges                                          | 
 |--------------|-----------------|-----------------------------------------------------------------------------|------------------------------------------------------|
 | [MSE](https://en.wikipedia.org/wiki/Mean_squared_error)          | libra | Measures the average squared difference between the reference and test images. | Range: [0, ∞). <br /> Lower MSE indicates higher similarity.               | 
 | [SSIM](https://en.wikipedia.org/wiki/Structural_similarity)         | piq | Assesses the structural similarity between images considering luminance, contrast, and structure. | Range: [-1, 1]. <br /> Higher values indicate better similarity. |
@@ -149,14 +157,14 @@ This example evaluates the visualization quality of isotropic turbulence dataset
 | [VIFp](https://ieeexplore.ieee.org/document/1576816)         | piq |Measures image quality based on visual information fidelity.                | Range: [0, 1]. <br /> Higher values indicate better preservation of information. |
 | [GMSD](https://arxiv.org/abs/1308.3052)         | piq |Gradient Magnitude Similarity Deviation metric for assessing image quality. | Range: [0, ∞). <br /> Lower values indicate higher similarity.             |
 | [HaarPSI](https://arxiv.org/abs/1607.06140)      | piq | Uses Haar wavelet-based perceptual similarity index to evaluate image quality. | Range: [0, 1]. <br /> Higher values indicate better perceptual similarity. | 
-| [pHash](https://en.wikipedia.org/wiki/Perceptual_hashing)      | ImageHash | Generates a compact hash value that represents the perceptual content of an image. | Range: [0, ∞). <br /> Higher values indicate worse perceptual similarity. | 
+| [pHash](https://en.wikipedia.org/wiki/Perceptual_hashing) | ImageHash | Generates a compact hash value that represents the perceptual content of an image. | Range: [0, ∞). <br /> Higher values indicate worse perceptual similarity. | 
 
 
 
 
 ### No Reference Metrics
 
-| Metric       |  Implementation | Description                                                                      | Value Ranges                                          | 
+| Metric       |  Python Package | Description                                                                      | Value Ranges                                          | 
 |--------------|-----------------|-----------------------------------------------------------------------------|------------------------------------------------------|
 | [BRISQUE](https://live.ece.utexas.edu/research/Quality/BRISQUE_release.zip)    | pyiqa | Blind/Referenceless Image Spatial Quality Evaluator (BRISQUE) uses natural scene statistics to measure image quality.               | Range: [0, 100]. <br /> Lower values indicate better quality. | 
 | [CLIP-IQA](https://arxiv.org/abs/2207.12396)   | piq | Image quality metric that utilizes the CLIP model to assess the visual quality of images based on their similarity to predefined text prompts.         | Range: [0, 1]. <br /> Higher values indicate better quality. | 
