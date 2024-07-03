@@ -90,11 +90,11 @@ This example evaluates the visualization quality of isotropic turbulence dataset
   <tr>
     <td style="text-align: center;">
       <p style="font-weight: bold;">Reference Image</p>
-      <img src="./data/test/orig.png" alt="Example 1" style="width: 400px; height: auto;">
+      <img src="./doc/img/orig.png" alt="Example 1" style="width: 400px; height: auto;">
     </td>
     <td style="text-align: center;">
       <p style="font-weight: bold;">Compressed Image (PSNR: 40)</p>
-      <img src="./data/test/compressed.png" alt="Example 2" style="width: 400px; height: auto;">
+      <img src="./doc/img/compressed.png" alt="Example 2" style="width: 400px; height: auto;">
     </td>
   </tr>
 </table>
@@ -102,10 +102,10 @@ This example evaluates the visualization quality of isotropic turbulence dataset
 
 ### Image Quality Maps
 ### RGB Color Space
-<img src="./data/test/map_RGB.png" alt="Example 2" style="max-width: 100%; height: auto;">
+<img src="./doc/img/map_RGB.png" alt="Example 2" style="max-width: 100%; height: auto;">
 
 ### HSV Color Space
-<img src="./data/test/map_HSV.png" alt="Example 2" style="max-width: 100%; height: auto;">
+<img src="./doc/img/map_HSV.png" alt="Example 2" style="max-width: 100%; height: auto;">
 
 
 ### Compatible Color Spaces
@@ -130,45 +130,38 @@ This example evaluates the visualization quality of isotropic turbulence dataset
 ### Full Reference Metrics
 
 
-Based on open source PIQ implementation (https://github.com/photosynthesis-team/piq)
-
-| Metric       | Description                                                                 | Value Ranges                                          | Reference Link                                            |
-|--------------|-----------------------------------------------------------------------------|------------------------------------------------------|-----------------------------------------------------------|
-| MSE          | Measures the average squared difference between the reference and test images. | Range: [0, ∞). Lower MSE indicates higher similarity.               | https://en.wikipedia.org/wiki/Mean_squared_error |
-| SSIM         | Assesses the structural similarity between images considering luminance, contrast, and structure. | Range: [-1, 1]. Higher values indicate better similarity. | https://en.wikipedia.org/wiki/Structural_similarity |
-| PSNR         | Represents the ratio between the maximum possible power of a signal and the power of corrupting noise. | Range: [0, ∞) dB. Higher values indicate better image quality.    | https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio |
-| FSIM         | Evaluates image quality based on feature similarity considering phase congruency and gradient magnitude. | Range: [0, 1]. Higher values indicate better feature similarity. | https://ieeexplore.ieee.org/document/5705575 |
-| MS-SSIM      | Extension of SSIM that evaluates image quality at multiple scales.          | Range: [0, 1]. Higher values indicate better structural similarity. | https://en.wikipedia.org/wiki/Multi-scale_structural_similarity |
-| VSI          | Measures image quality based on visual saliency.                            | Range: [0, 1]. Higher values indicate better visual similarity. | https://ieeexplore.ieee.org/document/6873260 |
-| SR-SIM       | Assesses image quality using spectral residual information.                 | Range: [0, 1]. Higher values indicate better visual similarity.                           | https://ieeexplore.ieee.org/document/6467149 |
-| MS-GMSD      | Evaluates image quality based on gradient magnitude similarity across multiple scales. | Range: [0, ∞). Lower values indicate higher similarity.     | https://ieeexplore.ieee.org/document/7952357 |
-| LPIPS        | Uses deep learning models to assess perceptual similarity.                  | Range: [0, 1]. Lower values indicate higher similarity. | https://arxiv.org/abs/1801.03924 |
-| PieAPP       | Deep learning-based metric for perceptual image quality.                    | Range: [0, 1]. Lower values indicate higher quality.      | https://arxiv.org/abs/1806.02067|
-| DISTS        | Combines deep learning features to evaluate image quality based on structure and texture similarity. | Range: [0, 1]. Lower values indicate higher similarity.                    | https://arxiv.org/abs/2004.07728|
-| MDSI         | Measures image quality based on mean deviation similarity index.            | Range: [0, ∞). Lower values indicate better quality.                | https://arxiv.org/abs/1608.07433|
-| DSS          | Computes image quality using a detailed similarity structure.               | Range: [0, 1]. Higher values indicate better similarity.                  | https://ieeexplore.ieee.org/document/7351172 |
-| IW-SSIM      | Information-weighted SSIM that emphasizes important regions in images.      | Range: [0, 1]. Higher values indicate better structural similarity. | https://ece.uwaterloo.ca/~z70wang/publications/IWSSIM.pdf |
-| VIFp         | Measures image quality based on visual information fidelity.                | Range: [0, 1]. Higher values indicate better preservation of information. | https://ieeexplore.ieee.org/document/1576816 |
-| GMSD         | Gradient Magnitude Similarity Deviation metric for assessing image quality. | Range: [0, ∞). Lower values indicate higher similarity.             | https://arxiv.org/abs/1308.3052 |
-| HaarPSI      | Uses Haar wavelet-based perceptual similarity index to evaluate image quality. | Range: [0, 1]. Higher values indicate better perceptual similarity. | https://arxiv.org/abs/1607.06140 |
+| Metric       |  Implementation | Description                                                                 | Value Ranges                                          | 
+|--------------|-----------------|-----------------------------------------------------------------------------|------------------------------------------------------|
+| [MSE](https://en.wikipedia.org/wiki/Mean_squared_error)          | libra | Measures the average squared difference between the reference and test images. | Range: [0, ∞). <br /> Lower MSE indicates higher similarity.               | 
+| [SSIM](https://en.wikipedia.org/wiki/Structural_similarity)         | piq | Assesses the structural similarity between images considering luminance, contrast, and structure. | Range: [-1, 1]. <br /> Higher values indicate better similarity. |
+| [PSNR](https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio)         | piq | Represents the ratio between the maximum possible power of a signal and the power of corrupting noise. | Range: [0, ∞) dB. <br /> Higher values indicate better image quality.    | 
+| [FSIM](https://ieeexplore.ieee.org/document/5705575)         | piq | Evaluates image quality based on feature similarity considering phase congruency and gradient magnitude. | Range: [0, 1]. <br /> Higher values indicate better feature similarity. | 
+| [MS-SSIM](https://en.wikipedia.org/wiki/Multi-scale_structural_similarity)      | piq | Extension of SSIM that evaluates image quality at multiple scales.          | Range: [0, 1]. <br /> Higher values indicate better structural similarity. | 
+| [VSI](https://ieeexplore.ieee.org/document/6873260)          | piq | Measures image quality based on visual saliency.                            | Range: [0, 1]. <br /> Higher values indicate better visual similarity. | 
+| [SR-SIM](https://ieeexplore.ieee.org/document/6467149)       | piq | Assesses image quality using spectral residual information.                 | Range: [0, 1]. <br /> Higher values indicate better visual similarity.                           | 
+| [MS-GMSD](https://ieeexplore.ieee.org/document/7952357)      | piq |Evaluates image quality based on gradient magnitude similarity across multiple scales. | Range: [0, ∞). <br /> Lower values indicate higher similarity.     | 
+| [LPIPS](https://arxiv.org/abs/1801.03924)        | piq |Uses deep learning models to assess perceptual similarity.                  | Range: [0, 1]. <br /> Lower values indicate higher similarity. | 
+| [PieAPP](https://arxiv.org/abs/1806.02067)       | piq |Deep learning-based metric for perceptual image quality.                    | Range: [0, 1]. <br /> Lower values indicate higher quality.      | 
+| [DISTS](https://arxiv.org/abs/2004.07728)        | piq |Combines deep learning features to evaluate image quality based on structure and texture similarity. | Range: [0, 1]. <br /> Lower values indicate higher similarity.                    | 
+| [MDSI](https://arxiv.org/abs/1608.07433)         | piq |Measures image quality based on mean deviation similarity index.            | Range: [0, ∞). <br /> Lower values indicate better quality.                | 
+| [DSS](https://ieeexplore.ieee.org/document/7351172)          | piq |Computes image quality using a detailed similarity structure.               | Range: [0, 1]. <br /> Higher values indicate better similarity.                  | 
+| [IW-SSIM](https://ece.uwaterloo.ca/~z70wang/publications/IWSSIM.pdf)      | piq |Information-weighted SSIM that emphasizes important regions in images.      | Range: [0, 1]. <br /> Higher values indicate better structural similarity. | 
+| [VIFp](https://ieeexplore.ieee.org/document/1576816)         | piq |Measures image quality based on visual information fidelity.                | Range: [0, 1]. <br /> Higher values indicate better preservation of information. |
+| [GMSD](https://arxiv.org/abs/1308.3052)         | piq |Gradient Magnitude Similarity Deviation metric for assessing image quality. | Range: [0, ∞). <br /> Lower values indicate higher similarity.             |
+| [HaarPSI](https://arxiv.org/abs/1607.06140)      | piq | Uses Haar wavelet-based perceptual similarity index to evaluate image quality. | Range: [0, 1]. <br /> Higher values indicate better perceptual similarity. | 
+| [pHash](https://en.wikipedia.org/wiki/Perceptual_hashing)      | ImageHash | Generates a compact hash value that represents the perceptual content of an image. | Range: [0, ∞). <br /> Higher values indicate worse perceptual similarity. | 
 
 
 
 
 ### No Reference Metrics
 
-Implementation bassed on (https://github.com/chaofengc/IQA-PyTorch)
-| **Metric** | **Description**                                                                                                                     | **Value Ranges**                                      | **Reference**                                                                                   |
-|------------|-------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|-------------------------------------------------------------------------------------------------|
-| BRISQUE    | Blind/Referenceless Image Spatial Quality Evaluator (BRISQUE) uses natural scene statistics to measure image quality.               | Range: [0, 100]. Lower values indicate better quality. | https://live.ece.utexas.edu/research/Quality/BRISQUE_release.zip |
-| CLIP-IQA   | Image quality metric that utilizes the CLIP model to assess the visual quality of images based on their similarity to predefined text prompts.         | Range: [0, 1]. Higher values indicate better quality. | https://arxiv.org/abs/2207.12396 |
-| NIQE       | Natural Image Quality Evaluator. It assesses image quality based on statistical features derived from natural scene statistics. | Range: [0, 100]. Lower values indicate better quality. | Mittal, A., Soundararajan, R., & Bovik, A. C. (2013). Making a “completely blind” image quality analyzer. IEEE Signal Processing Letters, 20(3), 209-212. |
-| MUSIQ      | Multi-Scale Image Quality. An advanced metric that evaluates image quality across multiple scales to better capture perceptual quality. | Range: [0, 1]. Higher values indicate better quality. | Ke, J., Li, Q., & Min, X. (2021). MUSIQ: Multi-scale image quality assessment. IEEE Transactions on Image Processing, 30, 1363-1376. |
-| NIMA       | Neural Image Assessment. A deep learning-based model that predicts the aesthetic and technical quality of images. | Range: [0, 10]. Higher values indicate better quality. | Talebi, H., & Milanfar, P. (2018). NIMA: Neural image assessment. IEEE Transactions on Image Processing, 27(8), 3998-4011. |
+| Metric       |  Implementation | Description                                                                      | Value Ranges                                          | 
+|--------------|-----------------|-----------------------------------------------------------------------------|------------------------------------------------------|
+| [BRISQUE](https://live.ece.utexas.edu/research/Quality/BRISQUE_release.zip)    | pyiqa | Blind/Referenceless Image Spatial Quality Evaluator (BRISQUE) uses natural scene statistics to measure image quality.               | Range: [0, 100]. <br /> Lower values indicate better quality. | 
+| [CLIP-IQA](https://arxiv.org/abs/2207.12396)   | piq | Image quality metric that utilizes the CLIP model to assess the visual quality of images based on their similarity to predefined text prompts.         | Range: [0, 1]. <br /> Higher values indicate better quality. | 
+| [NIQE ](https://ieeexplore.ieee.org/document/6353522)      | pyiqa | Natural Image Quality Evaluator. It assesses image quality based on statistical features derived from natural scene statistics. | Range: [0, 100]. <br /> Lower values indicate better quality. | 
+| [MUSIQ](https://arxiv.org/abs/2108.05997)      | pyiqa | Multi-Scale Image Quality. An advanced metric that evaluates image quality across multiple scales to better capture perceptual quality. | Range: [0, 1]. <br /> Higher values indicate better quality. |
+| [NIMA](https://ieeexplore.ieee.org/document/8352823) | pyiqa | Neural Image Assessment. A deep learning-based model that predicts the aesthetic and technical quality of images. | Range: [0, 10]. <br /> Higher values indicate better quality. | 
 
 
-### Perceptual Hashing (pHash) : 
-
-pHash is a technique used for image retrieval and near-duplicate detection by generating a compact hash value that represents the perceptual content of an image. It calculates a hash based on the entire image, enabling comparisons to identify visually similar images. However, pHash does not directly measure perceptual image quality in terms of fidelity or distortion.
-
-Learn more about pHash on (https://en.wikipedia.org/wiki/Perceptual_hashing).
