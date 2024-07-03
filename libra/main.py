@@ -28,6 +28,7 @@ import cv2
 import pandas as pd
 import warnings
 import numpy as np
+from datetime import datetime
 from utils.metrics import *
 from utils.image_preprocess import *
 from utils.map_computation import compute_maps
@@ -180,7 +181,8 @@ def main(argv):
     
     # Suppress all warnings
     warnings.filterwarnings("ignore")
-
+    run_mode = "JSON"
+    
     if (sys.argv[1].endswith(".json")):
         # Read JSON
         config_path = sys.argv[1]
@@ -201,26 +203,50 @@ def main(argv):
         generate_image_difference = config.get("generate_image_difference", False)
         difference_threshold = config.get("difference_threshold", 10)
     else:
+        run_mode = "CMD"
+        
         # Set some defaults
-        output_folder_path = "out"
         output_csv_name = "metrics.csv"
         generate_maps = False
-        generate_metrics = False
-        map_metrics = []
-        color_spaces_to_use = ["RGB"]
-        window_size = 161
+        generate_metrics = True
+        window_size = 11
         step_size = 50
-        generate_image_difference = False
-        difference_threshold = 10
         
         # Process Command line arguments
         parser = argparse.ArgumentParser()
         parser.add_argument('-r', '--ref', type=str, required=True, help='Refrence image')
         parser.add_argument('-c', '--comparison', type=str, required=True, help='Comparison image')
-        parser.add_argument('-o', '--output_directory', type=str, default='out', help='Output directory')
+        parser.add_argument('-o', '--output_directory', type=str, required=False, default="", help='Output directory')
+        parser.add_argument('-m', '--metrics', nargs='+', required=True, default=[], help='metrics to use e.g SSIM')
+        
+        parser.add_argument('-d', '--imgdiff', required=False, action="store_true", help='generate image diff')
+        parser.add_argument('-s', '--diffcolspace', nargs='+', required=False, default=['RGB'], help='color space to use for diff')
+        parser.add_argument('-t', '--diffthreshold', type=float, default=10, help='Theshold difference')
+        
         
         args = parser.parse_args()
         
+        ref_path = args.ref
+        dist_path = args.comparison
+        map_metrics = args.metrics
+        
+            
+        generate_image_difference = args.imgdiff
+        color_spaces_to_use = args.diffcolspace
+        difference_threshold = args.diffthreshold
+        
+        if args.output_directory == "":
+            now = datetime.now()
+            dt_string = now.strftime("%Y_%m_%d__%H_%M")
+            output_folder_path = "output-" + dt_string
+        else:
+            output_folder_path = args.output_directory
+            
+        
+        print(ref_path)
+        print(dist_path)
+        print(output_folder_path)
+        print(map_metrics)
 
 
     # Chcek for required fields
@@ -234,6 +260,7 @@ def main(argv):
     dist_image, ref_image = load_images(dist_path, ref_path)
     selected_metrics = {metric: metrics[metric]
                         for metric in map_metrics if metric in metrics}
+    print(selected_metrics)
 
     # Compute metric if flag is on
     if generate_metrics:
@@ -242,6 +269,8 @@ def main(argv):
             dist_image, ref_image, selected_metrics, color_spaces_to_use)
 
         results_df = pd.DataFrame(results)
+        if run_mode == "CMD":
+            print(results_df)
         csv_path = os.path.join(output_folder_path, output_csv_name)
         results_df.to_csv(csv_path, index=False)
         print(f"Results saved to {csv_path}")

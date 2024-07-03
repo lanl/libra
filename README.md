@@ -23,13 +23,8 @@ git clone git@github.com:lanl/vizStudy.git
 ```sh
 pip install opencv-python-headless numpy matplotlib scikit-image torch piq pyiqa ImageHash
 ```
-or 
-```
-conda install conda-forge::pytorch
-conda install piq -c photosynthesis-team -c conda-forge -c PyTorch
-conda install conda-forge::image-quality
-conda install pandas
-```
+
+Note: some dependecies are not available through conda. We recommend using virtual environments for now.
 
 ## Usage
 
@@ -52,29 +47,36 @@ The JSON configuration file should contain the following keys:
 
 ---
 
-Here is an example of the JSON configuration:
+Here is an example of the JSON configuration found in samples:
 
 ```json
 {
-    "reference_image_path": "/ref_path",
-    "distorted_image_path": "/dist_path",
-    "output_directory": "/out_path",
+    "reference_image_path": "samples/data/test3/orig.png",
+    "distorted_image_path": "samples/data/test3/compressed.png",
+    "output_directory": "output_compression",
     "output_filename": "metrics.csv",
-    "generate_metrics": false,
+    "generate_metrics": true,
     "generate_maps": true,
     "generate_image_difference":true,
     "difference_threshold": 100,
     "metrics": ["SSIM", "VSI", "GMSD", "MSE", "DSS"],
     "color_spaces": ["RGB", "HSV"],
-    "map_window_size": 150,
+    "map_window_size": 11,
     "map_step_size": 30
 }
-
 ```
+
 Run following command to compute:
 ```
-python main.py <config-path>
+python libra/main.py samples/sample.json
 ```
+
+
+A command line innterface is also provided, type:
+```
+python libra/main.py -h
+```
+for more information.
 
 ## Example Usage
 
