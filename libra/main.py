@@ -170,7 +170,6 @@ def compute_metrics(dist_image, ref_image, selected_metrics, color_spaces_to_use
     return results
 
 
-# def main(config_path):
 def main(argv):
     """
     Main function to compute IQA metrics and save the results.
@@ -241,12 +240,6 @@ def main(argv):
             output_folder_path = "output-" + dt_string
         else:
             output_folder_path = args.output_directory
-            
-        
-        print(ref_path)
-        print(dist_path)
-        print(output_folder_path)
-        print(map_metrics)
 
 
     # Chcek for required fields
@@ -260,7 +253,6 @@ def main(argv):
     dist_image, ref_image = load_images(dist_path, ref_path)
     selected_metrics = {metric: metrics[metric]
                         for metric in map_metrics if metric in metrics}
-    print(selected_metrics)
 
     # Compute metric if flag is on
     if generate_metrics:
@@ -297,6 +289,4 @@ if __name__ == "__main__":
         print("Usage: python compute_metrics.py <config_file>")
         sys.exit(1)
 
-    # config_path = sys.argv[1]
-    # main(config_path)
     main(sys.argv)
