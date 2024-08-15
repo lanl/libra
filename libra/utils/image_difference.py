@@ -78,9 +78,16 @@ def generate_thresholded_diff_image(image1_path, image2_path, threshold, color_s
         image2_channels = cv2.split(image2)
         difference = cv2.absdiff(image1_channels[color_channels], image2_channels[color_channels])
 
-    # Apply threshold to get binary mask of differences
-    _, thresholded_diff = cv2.threshold(difference, threshold, 255, cv2.THRESH_BINARY)
+    # Apply threshold 
+    _, thresholded_diff = cv2.threshold(difference, threshold, 255, cv2.THRESH_TOZERO)
+    
+    # Convert the difference to grayscale
+    diff_gray = cv2.cvtColor(thresholded_diff, cv2.COLOR_BGR2GRAY)
+
+    # Apply a colormap to visualize the difference
+    heatmap = cv2.applyColorMap(diff_gray, cv2.COLORMAP_HOT)
 
     # Save the thresholded difference image
-    cv2.imwrite(output_path, thresholded_diff)
+    #cv2.imwrite(output_path, thresholded_diff)
+    cv2.imwrite(output_path, heatmap)
     print(f"Thresholded difference image saved to {output_path}")

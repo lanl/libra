@@ -1,6 +1,6 @@
 {
-    "reference_image_path": "/Users/yetchi/Desktop/vizStudy/project_libra/data/test1/orig.png",
-    "distorted_image_path": "/Users/yetchi/Desktop/vizStudy/project_libra/data/test1/compressed.png",
+    "reference_image_path": "samples/data/test1/orig.png",
+    "distorted_image_path": "samples/data/test1/compressed.png",
     "output_directory": "examples/output/test4_output",
     "generate_metrics":true,
     "generate_maps": false,

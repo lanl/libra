@@ -23,17 +23,19 @@ The configuration file should be a JSON file with the following keys:
 import os
 import sys
 import json
+import argparse
 import cv2
 import pandas as pd
 import warnings
 import numpy as np
+from datetime import datetime
 from utils.metrics import *
 from utils.image_preprocess import *
 from utils.map_computation import compute_maps
 from utils.image_difference import *
 
 
-#define possible metrics
+# define possible metrics
 metrics = {
     'MSE': compute_mse,
     'SSIM': compute_ssim,
@@ -57,78 +59,79 @@ metrics = {
     "MUSIQ": compute_musiq,
     "NIMA": compute_nima,
     "CLIPIQA": compute_clip_iqa,
-    "PHASH" : compute_phash
+    "PHASH": compute_phash
 }
 
-#define possible color spaces
+# define possible color spaces
 
 color_spaces = {
-        'RGB': cv2.COLOR_BGR2RGB,
-        'HSV': cv2.COLOR_BGR2HSV,
-        'HLS': cv2.COLOR_BGR2HLS,
-        'LAB': cv2.COLOR_BGR2LAB,
-        "XYZ": cv2.COLOR_BGR2XYZ,
-        "LUV": cv2.COLOR_BGR2LUV,
-        "YCrCb": cv2.COLOR_BGR2YCrCb,
-        "YUV": cv2.COLOR_BGR2YUV
+    'RGB': cv2.COLOR_BGR2RGB,
+    'HSV': cv2.COLOR_BGR2HSV,
+    'HLS': cv2.COLOR_BGR2HLS,
+    'LAB': cv2.COLOR_BGR2LAB,
+    "XYZ": cv2.COLOR_BGR2XYZ,
+    "LUV": cv2.COLOR_BGR2LUV,
+    "YCrCb": cv2.COLOR_BGR2YCrCb,
+    "YUV": cv2.COLOR_BGR2YUV
 }
 
 
 def read_config(config_path):
-   """
-   Read and validate the configuration file.
+    """
+    Read and validate the configuration file.
 
-   Args:
-       config_path (str): Path to the configuration file.
+    Args:
+        config_path (str): Path to the configuration file.
 
-   Returns:
-       dict: Configuration dictionary.
-   """
-   try:
-       with open(config_path, 'r') as file:
-           config = json.load(file)
-       return config
-   except FileNotFoundError:
-       print(f"Error: Configuration file '{config_path}' not found.")
-       sys.exit(1)
-   except json.JSONDecodeError:
-       print(f"Error: Configuration file '{config_path}' is not a valid JSON file.")
-       sys.exit(1)
+    Returns:
+        dict: Configuration dictionary.
+    """
+    try:
+        with open(config_path, 'r') as file:
+            config = json.load(file)
+        return config
+    except FileNotFoundError:
+        print(f"Error: Configuration file '{config_path}' not found.")
+        sys.exit(1)
+    except json.JSONDecodeError:
+        print(
+            f"Error: Configuration file '{config_path}' is not a valid JSON file.")
+        sys.exit(1)
 
 
 def create_output_folder(output_folder_path):
-   """
-   Create the output folder if it doesn't exist.
+    """
+    Create the output folder if it doesn't exist.
 
-   Args:
-       output_folder_path (str): Path to the output folder.
-   """
-   try:
-       os.makedirs(output_folder_path, exist_ok=True)
-       print(f"Output folder '{output_folder_path}' created.")
-   except Exception as e:
-       print(f"Error creating output folder '{output_folder_path}': {e}")
-       sys.exit(1)
+    Args:
+        output_folder_path (str): Path to the output folder.
+    """
+    try:
+        os.makedirs(output_folder_path, exist_ok=True)
+        print(f"Output folder '{output_folder_path}' created.")
+    except Exception as e:
+        print(f"Error creating output folder '{output_folder_path}': {e}")
+        sys.exit(1)
 
 
 def load_images(dist_path, ref_path):
-   """
-   Load the distorted and reference images.
+    """
+    Load the distorted and reference images.
 
-   Args:
-       dist_path (str): Path to the distorted image.
-       ref_path (str): Path to the reference image.
-   Returns:
-       tuple: (distorted image, reference image)
-   """
-   dist_image = cv2.imread(dist_path)
-   ref_image = cv2.imread(ref_path)
+    Args:
+        dist_path (str): Path to the distorted image.
+        ref_path (str): Path to the reference image.
+    Returns:
+        tuple: (distorted image, reference image)
+    """
+    dist_image = cv2.imread(dist_path)
+    ref_image = cv2.imread(ref_path)
 
-   if dist_image is None or ref_image is None:
-       print("Unable to read input images.")
-       sys.exit(1)
+    if dist_image is None or ref_image is None:
+        print("Unable to read input images.")
+        sys.exit(1)
 
-   return dist_image, ref_image
+    return dist_image, ref_image
 
 
 def compute_metrics(dist_image, ref_image, selected_metrics, color_spaces_to_use):
@@ -150,89 +153,140 @@ def compute_metrics(dist_image, ref_image, selected_metrics, color_spaces_to_use
         for color_space_name in color_spaces_to_use:
             try:
                 color_space_code = color_spaces[color_space_name]
-                dist_image_converted = cv2.cvtColor(dist_image, color_space_code)
+                dist_image_converted = cv2.cvtColor(
+                    dist_image, color_space_code)
                 ref_image_converted = cv2.cvtColor(ref_image, color_space_code)
                 if metric_name in ["BRISQUE", "NIQE", "MUSIQ", "NIMA", "CLIPIQA"]:
-                    metric_result[color_space_name] = metric_fn(dist_image_converted)
+                    metric_result[color_space_name] = metric_fn(
+                        dist_image_converted)
                 else:
-                    metric_result[color_space_name] = metric_fn(dist_image_converted, ref_image_converted)
+                    metric_result[color_space_name] = metric_fn(
+                        dist_image_converted, ref_image_converted)
             except Exception as e:
-                print(f"Error computing {metric_name} for {color_space_name}: {e}")
+                print(
+                    f"Error computing {metric_name} for {color_space_name}: {e}")
         results.append(metric_result)
 
     return results
 
 
-def main(config_path):
-   """
-   Main function to compute IQA metrics and save the results.
+def main(argv):
+    """
+    Main function to compute IQA metrics and save the results.
 
-   Args:
-       config_path (str): Path to the configuration file.
-   """
-
-
+    Args:
+        config_path (str): Path to the configuration file.
+    """
+    
     # Suppress all warnings
-   warnings.filterwarnings("ignore")
+    warnings.filterwarnings("ignore")
+    run_mode = "JSON"
+    
+    if (sys.argv[1].endswith(".json")):
+        # Read JSON
+        config_path = sys.argv[1]
 
-    #set config dict
-   config = read_config(config_path)
+        # set config dict
+        config = read_config(config_path)
 
+        dist_path = config.get("distorted_image_path")
+        ref_path = config.get("reference_image_path")
+        output_folder_path = config.get("output_directory", "out")
+        output_csv_name = config.get("output_filename", "metrics.csv")
+        generate_maps = config.get("generate_maps", False)
+        generate_metrics = config.get("generate_metrics", False)
+        map_metrics = config.get("metrics", [])
+        color_spaces_to_use = config.get("color_spaces", ["RGB"])
+        window_size = config.get("map_window_size", 161)
+        step_size = config.get("map_step_size", 50)
+        generate_image_difference = config.get("generate_image_difference", False)
+        difference_threshold = config.get("difference_threshold", 10)
+    else:
+        run_mode = "CMD"
+        
+        # Set some defaults
+        output_csv_name = "metrics.csv"
+        generate_maps = False
+        generate_metrics = True
+        window_size = 11
+        step_size = 50
+        
+        # Process Command line arguments
+        parser = argparse.ArgumentParser()
+        parser.add_argument('-r', '--ref', type=str, required=True, help='Refrence image')
+        parser.add_argument('-c', '--comparison', type=str, required=True, help='Comparison image')
+        parser.add_argument('-o', '--output_directory', type=str, required=False, default="", help='Output directory')
+        parser.add_argument('-m', '--metrics', nargs='+', required=True, default=[], help='metrics to use e.g SSIM')
+        
+        parser.add_argument('-d', '--imgdiff', required=False, action="store_true", help='generate image diff')
+        parser.add_argument('-s', '--diffcolspace', nargs='+', required=False, default=['RGB'], help='color space to use for diff')
+        parser.add_argument('-t', '--diffthreshold', type=float, default=10, help='Theshold difference')
+        
+        
+        args = parser.parse_args()
+        
+        ref_path = args.ref
+        dist_path = args.comparison
+        map_metrics = args.metrics
+        
+            
+        generate_image_difference = args.imgdiff
+        color_spaces_to_use = args.diffcolspace
+        difference_threshold = args.diffthreshold
+        
+        if args.output_directory == "":
+            now = datetime.now()
+            dt_string = now.strftime("%Y_%m_%d__%H_%M")
+            output_folder_path = "output-" + dt_string
+        else:
+            output_folder_path = args.output_directory
 
-   dist_path = config.get("distorted_image_path")
-   ref_path = config.get("reference_image_path")
-   output_folder_path = config.get("output_directory", "out")
-   output_csv_name = config.get("output_filename", "metrics.csv")
-   generate_maps = config.get("generate_maps", False)
-   generate_metrics = config.get("generate_metrics",False)
-   map_metrics = config.get("metrics", [])
-   color_spaces_to_use = config.get("color_spaces", ["RGB"])
-   window_size = config.get("map_window_size", 161)
-   step_size = config.get("map_step_size", 50)
-   generate_image_difference = config.get("generate_image_difference", False)
-   difference_threshold = config.get("difference_threshold", 10)
 
     # Chcek for required fields
-   if not dist_path or not ref_path or not output_folder_path:
-       print("Missing required fields in the configuration file.")
-       sys.exit(1)
+    if not dist_path or not ref_path or not output_folder_path:
+        print("Missing required fields in the configuration file.")
+        sys.exit(1)
 
-   create_output_folder(output_folder_path)
+    create_output_folder(output_folder_path)
 
-   # load images and metrics
-   dist_image, ref_image = load_images(dist_path, ref_path)
-   selected_metrics = {metric: metrics[metric] for metric in map_metrics if metric in metrics}
+    # load images and metrics
+    dist_image, ref_image = load_images(dist_path, ref_path)
+    selected_metrics = {metric: metrics[metric]
+                        for metric in map_metrics if metric in metrics}
 
     # Compute metric if flag is on
-   if generate_metrics:
+    if generate_metrics:
         print("Computing metrics...")
-        results = compute_metrics(dist_image, ref_image, selected_metrics, color_spaces_to_use)
+        results = compute_metrics(
+            dist_image, ref_image, selected_metrics, color_spaces_to_use)
 
         results_df = pd.DataFrame(results)
+        if run_mode == "CMD":
+            print(results_df)
         csv_path = os.path.join(output_folder_path, output_csv_name)
         results_df.to_csv(csv_path, index=False)
         print(f"Results saved to {csv_path}")
 
-    # Compute maps if flag is on
-   if generate_maps:
+        # Compute maps if flag is on
+    if generate_maps:
         print("Computing Metric Maps...")
-        compute_maps(dist_image, ref_image, selected_metrics, color_spaces_to_use, os.path.join(output_folder_path, "map"), window_size, step_size)
+        compute_maps(dist_image, ref_image, selected_metrics, color_spaces_to_use,
+                     os.path.join(output_folder_path, "map"), window_size, step_size)
 
-
-    #compute diff if flag is on
-   if generate_image_difference: 
-    print("Computing image difference...")
-    for color_space_name in color_spaces_to_use:
-        color_space = get_color_space_code(color_space_name)
-        diff_output_path = os.path.join(output_folder_path, f"diff_image_{color_space_name.lower()}.png")
-        generate_thresholded_diff_image(dist_path, ref_path, difference_threshold, color_space, diff_output_path)
-
+        # compute diff if flag is on
+    if generate_image_difference:
+        print("Computing image difference...")
+        for color_space_name in color_spaces_to_use:
+            color_space = get_color_space_code(color_space_name)
+            diff_output_path = os.path.join(
+                output_folder_path, f"diff_image_{color_space_name.lower()}.png")
+            generate_thresholded_diff_image(
+                dist_path, ref_path, difference_threshold, color_space, diff_output_path)
 
 
 if __name__ == "__main__":
-   if len(sys.argv) != 2:
-       print("Usage: python compute_metrics.py <config_file>")
-       sys.exit(1)
+    if len(sys.argv) < 2:
+        print("Usage: python compute_metrics.py <config_file>")
+        sys.exit(1)
 
-   config_path = sys.argv[1]
-   main(config_path)
+    main(sys.argv)

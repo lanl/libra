@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import torch
 import piq
-import pyiqa
+#import pyiqa
 import torchvision.transforms as transforms
 from PIL import Image
 from piq import CLIPIQA
