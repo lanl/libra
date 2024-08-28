@@ -10,9 +10,6 @@ import torch
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
 
-
-
-
 color_spaces = {
     'RGB': cv2.COLOR_BGR2RGB,
     'HSV': cv2.COLOR_BGR2HSV,

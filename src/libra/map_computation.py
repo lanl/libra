@@ -6,8 +6,8 @@ The computed metric values and maps can be used for evaluating the quality of im
 and detecting differences between them.
 """
 
-import numpy as np
 import cv2
+import numpy as np
 import matplotlib.pyplot as plt
 
 from .utils import *

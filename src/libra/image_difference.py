@@ -9,49 +9,6 @@ import cv2
 
 from .utils import *
 
-# def get_color_space_code(color_space_name):
-#     """
-#     Get the OpenCV color space conversion code for a given color space name.
-
-#     Args:
-#         color_space_name (str): The name of the color space (e.g., 'RGB', 'HSV', 'LAB').
-
-#     Returns:
-#         int: The OpenCV color space conversion code.
-#     """
-#     color_spaces = {
-#         'RGB': cv2.COLOR_BGR2RGB,
-#         'HSV': cv2.COLOR_BGR2HSV,
-#         'HLS': cv2.COLOR_BGR2HLS,
-#         'LAB': cv2.COLOR_BGR2LAB,
-#         'XYZ': cv2.COLOR_BGR2XYZ,
-#         'LUV': cv2.COLOR_BGR2LUV,
-#         'YCrCb': cv2.COLOR_BGR2YCrCb,
-#         'YUV': cv2.COLOR_BGR2YUV
-#     }
-#     return color_spaces.get(color_space_name.upper(), cv2.COLOR_BGR2RGB)
-
-
-# def load_and_convert_image(image_path, color_space_code):
-#     """
-#     Load an image from the given path and convert it to the specified color space.
-
-#     Args:
-#         image_path (str): The path to the image file.
-#         color_space_code (int): The OpenCV color space conversion code.
-
-#     Returns:
-#         numpy.ndarray: The loaded and converted image.
-
-#     Raises:
-#         FileNotFoundError: If the specified image file is not found.
-#     """
-#     image = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)
-#     if image is None:
-#         raise FileNotFoundError(f"Image not found: {image_path}")
-#     return cv2.cvtColor(image, color_space_code)
-
-
 
 def generate_thresholded_diff_image(image1_path, image2_path, threshold, color_space_code, output_path, color_channels=None):
     """
@@ -97,7 +54,6 @@ def generate_thresholded_diff_image(image1_path, image2_path, threshold, color_s
     heatmapEq = cv2.applyColorMap(equalized_diff, cv2.COLORMAP_JET)
 
     # Save the thresholded difference image
-    #cv2.imwrite(output_path, thresholded_diff)
     cv2.imwrite(output_path, heatmap)
     
     eq_output_path = output_path.replace("diff_image_", "diff_image_eq_")
