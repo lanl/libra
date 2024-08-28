@@ -1,7 +1,11 @@
 # Project Libra
 
+<img src="./doc/img/libra_icon.png" alt="Example 2" style="max-width: 100%; height: 75;">
+
 ### Overview
 This project provides tools to compute various image quality assessment (IQA) metrics. 
+
+
 
 ## Features
 - **Compute Image Quality Assesment Metrics**: Assessment quality with multiple full and no reference metrics

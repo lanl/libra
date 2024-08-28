@@ -1,0 +1,12 @@
+{
+    "reference_image_path": "samples/data/test1/orig.png",
+    "distorted_image_path": "samples/data/test1/compressed.png",
+    "output_directory": "examples/output/test4_output",
+    "generate_metrics":true,
+    "generate_maps": false,
+    "generate_image_difference":true,
+    "difference_threshold": 200,
+    "metrics": ["SSIM", "CLIPIQA","PSNR"],
+    "color_spaces": ["RGB"]
+    
+}
