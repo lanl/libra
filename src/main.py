@@ -171,8 +171,16 @@ def main(argv):
         print("Computing image difference...")
         for color_space_name in color_spaces_to_use:
             color_space = get_color_space_code(color_space_name)
+            heatmap, heatmap_eq = generate_thresholded_diff_image(dist_path, ref_path, difference_threshold, color_space)
+
+            # Save the images
             diff_output_path = os.path.join(output_folder_path, f"diff_image_{color_space_name.lower()}.png")
-            generate_thresholded_diff_image(dist_path, ref_path, difference_threshold, color_space, diff_output_path)
+            write_image(heatmap, diff_output_path)
+    
+            eq_output_path = diff_output_path.replace("diff_image_", "diff_image_eq_")
+            write_image(heatmap_eq, eq_output_path)
+            
+            print(f"Thresholded difference image saved to {diff_output_path}")
 
 
 if __name__ == "__main__":

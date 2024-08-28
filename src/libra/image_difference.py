@@ -10,10 +10,10 @@ import cv2
 from .utils import *
 
 
-def generate_thresholded_diff_image(image1_path, image2_path, threshold, color_space_code, output_path, color_channels=None):
+def generate_thresholded_diff_image(image1_path, image2_path, threshold, color_space_code, color_channels=None):
     """
     Load two images, convert them to the specified color space, calculate the difference,
-    and apply a threshold to highlight significant differences. Save the result to a file.
+    and apply a threshold to highlight significant differences
 
     Args:
         image1_path (str): The path to the first image file.
@@ -26,6 +26,10 @@ def generate_thresholded_diff_image(image1_path, image2_path, threshold, color_s
 
     Raises:
         FileNotFoundError: If either of the input image files is not found.
+        
+    Return:
+        image difference image
+        iamge difference histogram equalized
     """
     # Load and convert images
     image1 = load_and_convert_image(image1_path, color_space_code)
@@ -52,10 +56,5 @@ def generate_thresholded_diff_image(image1_path, image2_path, threshold, color_s
     # Apply a colormap to visualize the difference
     heatmap = cv2.applyColorMap(diff_gray, cv2.COLORMAP_JET)
     heatmapEq = cv2.applyColorMap(equalized_diff, cv2.COLORMAP_JET)
-
-    # Save the thresholded difference image
-    cv2.imwrite(output_path, heatmap)
     
-    eq_output_path = output_path.replace("diff_image_", "diff_image_eq_")
-    cv2.imwrite(eq_output_path, heatmapEq)
-    print(f"Thresholded difference image saved to {output_path}")
+    return heatmap, heatmapEq

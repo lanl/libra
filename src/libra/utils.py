@@ -21,6 +21,7 @@ color_spaces = {
     "YUV": cv2.COLOR_BGR2YUV
 }
 
+
 def load_image(path):
     """
     Load the distorted and reference images.
@@ -38,6 +39,19 @@ def load_image(path):
         sys.exit(1)
 
     return image
+
+
+def write_image(img, path):
+    """
+    Write an image out to disk
+    
+    Args:
+        img (cv object): the image
+        path (str): Path to write it to
+    """
+    
+    cv2.imwrite(path, img)
+    
 
 
 def load_and_convert_image(image_path, color_space_code=cv2.COLOR_BGR2RGB):
@@ -104,6 +118,20 @@ def create_output_folder(output_folder_path):
 def normalize_image(image):
     '''Normalize the image to the range [0, 1]'''
     return image / 255.0
+
+
+def is_similar(img1, img2):
+    """ 
+    Check if two images are the same
+    """
+    
+    if img1.shape != img2.shape:
+        return False
+    
+    diff = cv2.absdiff(img1, img2)
+    print("diff:",cv2.countNonZero(diff))
+    return cv2.countNonZero(diff) == 0
+
 
 
 def load_tensor_image(image_path):
