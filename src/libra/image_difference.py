@@ -10,7 +10,7 @@ import cv2
 from .utils import *
 
 
-def generate_thresholded_diff_image(image1_path, image2_path, threshold, color_space_code, color_channels=None):
+def diff_images(image1_path, image2_path, threshold, color_space_name, color_channels=None):
     """
     Load two images, convert them to the specified color space, calculate the difference,
     and apply a threshold to highlight significant differences
@@ -19,8 +19,7 @@ def generate_thresholded_diff_image(image1_path, image2_path, threshold, color_s
         image1_path (str): The path to the first image file.
         image2_path (str): The path to the second image file.
         threshold (int): The threshold value to apply for highlighting differences.
-        color_space_code (int): The OpenCV color space conversion code.
-        output_path (str): The path to save the thresholded difference image.
+        color_space_name (str): name of the color space to use
         color_channels (tuple or None, optional): A tuple specifying the color channels to use for calculating the difference.
             If None, all color channels are used.
 
@@ -28,10 +27,11 @@ def generate_thresholded_diff_image(image1_path, image2_path, threshold, color_s
         FileNotFoundError: If either of the input image files is not found.
         
     Return:
-        image difference image
-        iamge difference histogram equalized
+        image difference image (open CV)
+        iamge difference histogram equalized (open CV)
     """
     # Load and convert images
+    color_space_code = get_color_space_code(color_space_name)
     image1 = load_and_convert_image(image1_path, color_space_code)
     image2 = load_and_convert_image(image2_path, color_space_code)
 

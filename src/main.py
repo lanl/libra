@@ -29,10 +29,11 @@ import warnings
 import numpy as np
 from datetime import datetime
 
-from libra.map_computation import compute_maps
-from libra.image_difference import generate_thresholded_diff_image
-from libra.compute_metrics import compute_metrics
+from libra.map_computation import compute_map
+from libra.image_difference import diff_images
+from libra.compute_metrics import *
 from libra.utils import *
+from libra.metrics import *
 
 
 
@@ -77,7 +78,7 @@ def main(argv):
     parser.add_argument('-j', '--json', type=str, required=False, help='JSON Input file')
     
     required_arg = True
-    if ('--json' or '-j') in sys.argv:
+    if '-j' in sys.argv or '--json' in sys.argv:
         required_arg = False
     
     parser.add_argument('-r', '--ref', type=str, required=required_arg, help='Refrence image')
@@ -88,6 +89,7 @@ def main(argv):
     parser.add_argument('-d', '--imgdiff', required=False, action="store_true", help='generate image diff')
     parser.add_argument('-s', '--diffcolspace', nargs='+', required=False, default=['RGB'], help='color space to use for diff')
     parser.add_argument('-t', '--diffthreshold', type=float, default=10, help='Theshold difference')
+    parser.add_argument('-p', '--mapdiff', required=False, action="store_true", help='generate image diff map')
     
     args = parser.parse_args()
     run_mode = "CMD"
@@ -110,7 +112,7 @@ def main(argv):
         generate_metrics = config.get("generate_metrics", False)
         map_metrics = config.get("metrics", [])
         color_spaces_to_use = config.get("color_spaces", ["RGB"])
-        window_size = config.get("map_window_size", 161)
+        window_size = config.get("map_window_size", 11)
         step_size = config.get("map_step_size", 50)
         generate_image_difference = config.get("generate_image_difference", False)
         difference_threshold = config.get("difference_threshold", 10)
@@ -131,6 +133,7 @@ def main(argv):
         generate_image_difference = args.imgdiff
         color_spaces_to_use = args.diffcolspace
         difference_threshold = args.diffthreshold
+        generate_maps = args.mapdiff
         
         if args.output_directory == "":
             now = datetime.now()
@@ -163,15 +166,23 @@ def main(argv):
     # Compute maps if flag is on
     if generate_maps:
         print("Computing Metric Maps...")
-        compute_maps(dist_path, ref_path, map_metrics, color_spaces_to_use,
-                     os.path.join(output_folder_path, "map"), window_size, step_size)
+
+        for color_space in color_spaces_to_use:
+            for metric_name in map_metrics:
+                plt = compute_map(dist_path, ref_path, metric_name, metric_fn, color_space, window_size, step_size)
+                
+                output_path = os.path.join(output_folder_path, "map")
+                plt.savefig(f"{output_path}_{color_space}_{metric_name}.png")
+                plt.close()
+                
 
     # compute diff if flag is on
     if generate_image_difference:
         print("Computing image difference...")
+        
         for color_space_name in color_spaces_to_use:
-            color_space = get_color_space_code(color_space_name)
-            heatmap, heatmap_eq = generate_thresholded_diff_image(dist_path, ref_path, difference_threshold, color_space)
+            
+            heatmap, heatmap_eq = diff_images(dist_path, ref_path, difference_threshold, color_space_name)
 
             # Save the images
             diff_output_path = os.path.join(output_folder_path, f"diff_image_{color_space_name.lower()}.png")

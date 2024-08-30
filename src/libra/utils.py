@@ -120,7 +120,7 @@ def normalize_image(image):
     return image / 255.0
 
 
-def is_similar(img1, img2):
+def is_same(img1, img2):
     """ 
     Check if two images are the same
     """
@@ -129,8 +129,12 @@ def is_similar(img1, img2):
         return False
     
     diff = cv2.absdiff(img1, img2)
-    print("diff:",cv2.countNonZero(diff))
-    return cv2.countNonZero(diff) == 0
+    
+    n = np.sum(diff > 0)
+    if (n > 0):
+        print("# dissimilar pixels: ", n)
+
+    return ( n == 0 )
 
 
 

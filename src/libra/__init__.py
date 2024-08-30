@@ -1,3 +1,3 @@
-from .map_computation import compute_maps
-from .compute_metrics import compute_metrics
-from .image_difference import generate_thresholded_diff_image
+from .map_computation import compute_map
+from .compute_metrics import *
+from .image_difference import diff_images

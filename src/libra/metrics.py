@@ -225,3 +225,30 @@ def compute_clip_iqa(image):
     score = clip_iqa(image).item()
     return score
 
+
+
+metrics = {
+    'MSE': compute_mse,
+    'SSIM': compute_ssim,
+    'FSIM': compute_fsim,
+    'MS-SSIM': compute_ms_ssim,
+    'PSNR': compute_psnr,
+    'VSI': compute_vsi,
+    'SR-SIM': compute_srsim,
+    'MS-GMSD': compute_msgmsd,
+    'LPIPS': compute_lpips,
+    'PieAPP': compute_pieapp,
+    'DISTS': compute_dists,
+    "MDSI": compute_mdsi,
+    "DSS": compute_dss,
+    "IW-SSIM": compute_iw_ssim,
+    "VIFp": compute_vifp,
+    "GMSD": compute_gmsd,
+    "HaarPSI": compute_haarpsi,
+    "BRISQUE": compute_brisque,
+    "NIQE": compute_niqe,
+    "MUSIQ": compute_musiq,
+    "NIMA": compute_nima,
+    "CLIPIQA": compute_clip_iqa,
+    "PHASH": compute_phash
+}

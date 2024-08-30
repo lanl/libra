@@ -1,6 +1,6 @@
 # Project Libra
 
-<img src="./doc/img/libra_icon.png" alt="Example 2" style="max-width: 100%; height: 75;">
+<img src="./doc/img/libra_icon.png" alt="Example 2" style="max-width: 100%; height: 50;">
 
 ### Overview
 This project provides tools to compute various image quality assessment (IQA) metrics. 
@@ -43,7 +43,17 @@ Note: some dependecies are not available through conda. We recommend using virtu
 
 ## Usage
 
-### Set up json configuration
+A command line interface is provided, that is accessive as follows:
+```
+python libra/main.py -h
+```
+
+There are three modes to use the tool:
+- using a JSON file
+- using the command line interface
+- as a library
+  
+### JSON
 
 The JSON configuration file should contain the following keys:
 
@@ -62,36 +72,39 @@ The JSON configuration file should contain the following keys:
 
 ---
 
-Here is an example of the JSON configuration found in samples:
+Here is an example of a JSON configuration, also available in the samples folder:
 
 ```json
 {
-    "reference_image_path": "samples/data/test3/orig.png",
-    "distorted_image_path": "samples/data/test3/compressed.png",
-    "output_directory": "output_compression",
+    "reference_image_path": "tests/data/test/orig.png",
+    "distorted_image_path": "tests/data/test/compressed.png",
+    "output_directory": "test_output",
     "output_filename": "metrics.csv",
-    "generate_metrics": true,
     "generate_maps": true,
-    "generate_image_difference":true,
-    "difference_threshold": 100,
-    "metrics": ["SSIM", "VSI", "GMSD", "MSE", "DSS"],
-    "color_spaces": ["RGB", "HSV"],
-    "map_window_size": 11,
-    "map_step_size": 30
+    "generate_metrics": true,
+    "generate_image_difference": true,
+    "difference_threshold": 10,
+    "metrics": ["PSNR", "SSIM", "VSI", "GMSD", "MSE", "DSS"],
+    "color_spaces": ["RGB", "HSV", "LAB"],
+    "map_window_size": 161,
+    "map_step_size": 50
 }
 ```
 
-Run following command to compute:
+It can be run from the home directory as follows:
 ```
-python libra/main.py samples/sample.json
+python src/main.py -j tests/sample_input.json
 ```
 
+### Command Line
+The command line interface is useful for quick comparisons between two images. It can be used e.g. as
+```
+python src/main.py -r tests/data/test3/orig.png -c tests/data/test3/compressed.png -m SSIM -p
+```
 
-A command line innterface is also provided, type:
-```
-python libra/main.py -h
-```
-for more information.
+### Library
+Refer to the example.ipynb notebook in the samples folder
+
 
 ## Example Usage
 
@@ -123,7 +136,7 @@ This example evaluates the visualization quality of isotropic turbulence dataset
 <img src="./doc/img/map_HSV.png" alt="Example 2" style="max-width: 100%; height: auto;">
 
 
-### Compatible Color Spaces
+# Supported Color Spaces
 
 | **Color Space** | **Description** |
 |-----------------|------------------------------------------------------------------------------------------------------|
