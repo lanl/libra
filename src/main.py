@@ -169,7 +169,7 @@ def main(argv):
 
         for color_space in color_spaces_to_use:
             for metric_name in map_metrics:
-                plt = compute_map(dist_path, ref_path, metric_name, metric_fn, color_space, window_size, step_size)
+                plt = compute_map(dist_path, ref_path, metric_name, color_space, window_size, step_size)
                 
                 output_path = os.path.join(output_folder_path, "map")
                 plt.savefig(f"{output_path}_{color_space}_{metric_name}.png")

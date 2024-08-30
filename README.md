@@ -93,7 +93,7 @@ Here is an example of a JSON configuration, also available in the samples folder
 
 It can be run from the home directory as follows:
 ```
-python src/main.py -j tests/sample_input.json
+python src/main.py -j samples/sample_input.json
 ```
 
 ### Command Line
