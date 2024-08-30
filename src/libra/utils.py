@@ -148,3 +148,7 @@ def load_tensor_image(image_path):
     image = normalize_image(image.astype(np.float32))
     image_tensor = torch.tensor(image).permute(2, 0, 1).unsqueeze(0).float()
     return image_tensor.to(device)
+
+
+def __dir__():
+    return [""]

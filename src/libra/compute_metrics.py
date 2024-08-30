@@ -90,3 +90,7 @@ def list_colorspaces():
         all the supported color spaces
     """
     return color_spaces.keys()
+
+
+def __dir__():
+    return ["compute_metrics", "compute_metric", "list_metrics", "list_colorspaces"]

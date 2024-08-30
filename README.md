@@ -99,7 +99,7 @@ python src/main.py -j samples/sample_input.json
 ### Command Line
 The command line interface is useful for quick comparisons between two images. It can be used e.g. as
 ```
-python src/main.py -r tests/data/test3/orig.png -c tests/data/test3/compressed.png -m SSIM -p
+python src/main.py -r tests/data/test/orig.png -c tests/data/test/compressed.png -m SSIM -p
 ```
 
 ### Library

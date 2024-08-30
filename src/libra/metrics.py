@@ -252,3 +252,6 @@ metrics = {
     "CLIPIQA": compute_clip_iqa,
     "PHASH": compute_phash
 }
+
+def __dir__():
+    return [""]

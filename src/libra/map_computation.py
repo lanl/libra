@@ -14,6 +14,7 @@ from .utils import *
 from .metrics import *
 
 
+
 def compute_ssim_map(im1, im2):
     from skimage.metrics import structural_similarity as ssim
     """
@@ -164,3 +165,7 @@ def compute_map(dist_path, ref_path, metric_name, color_space, patch_size=161, s
         print(f"Error generating {metric_name} Map for {color_space} color space: {e}")
             
     return plt
+
+
+def __dir__():
+    return ["compute_map"]

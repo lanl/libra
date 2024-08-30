@@ -58,3 +58,7 @@ def diff_images(image1_path, image2_path, threshold, color_space_name, color_cha
     heatmapEq = cv2.applyColorMap(equalized_diff, cv2.COLORMAP_JET)
     
     return heatmap, heatmapEq
+
+
+def __dir__():
+    return ["diff_images"]
