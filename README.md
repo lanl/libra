@@ -8,7 +8,7 @@ This project provides tools to compute various image quality assessment (IQA) me
 
 
 ## Features
-- **Compute Image Quality Assesment Metrics**: Assessment quality with multiple full and no reference metrics
+- **Compute Image Quality Assessment Metrics**: Assessment quality with multiple full and no reference metrics
 - **Multiple Color Spaces**: Support for different color spaces (e.g., RGB, HSV) to assess image quality in various domains.
 - **Heatmaps Generation**: Generate metric maps visualizing the spatial distribution of metric values across the image
 - **Image Difference**: Generate thresholded difference images to highlight significant differences between two images
@@ -39,7 +39,7 @@ git clone https://github.com/lanl/libra
 pip install opencv-python-headless numpy matplotlib scikit-image torch piq pyiqa ImageHash
 ```
 
-Note: some dependecies are not available through conda. We recommend using virtual environments for now.
+Note: some dependencies are not available through conda. We recommend using virtual environments for now.
 
 ## Usage
 
@@ -108,7 +108,7 @@ Refer to the example.ipynb notebook in the samples folder
 
 ## Example Usage
 
-This example evaluates the visualization quality of isotropic turbulence dataset subjected to tensor compression with a maximum Peak Signal-to-Noise Ratio (PSNR) of 40. The assessment focuses on how effectively the tensor compression retains the visual fidelity of the turbulence data.
+This example evaluates the visualization quality of an isotropic turbulence dataset subjected to tensor compression with a maximum Peak Signal-to-Noise Ratio (PSNR) of 40. The assessment focuses on how effectively the tensor compression retains the visual fidelity of the turbulence data.
 
 **References**\
 **Dataset**: https://klacansky.com/open-scivis-datasets/\
@@ -150,7 +150,7 @@ This example evaluates the visualization quality of isotropic turbulence dataset
 | [YUV](https://en.wikipedia.org/wiki/YUV)                 | Used in analog television and some digital video formats. Separates image into luminance (Y) and chrominance (U and V). |
 
 
-## Image Quality Assesment Metrics
+## Image Quality Assessment Metrics
 
 ### Full Reference Metrics
 
