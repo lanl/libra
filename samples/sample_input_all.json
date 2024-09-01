@@ -1,0 +1,14 @@
+{
+    "reference_image_path": "tests/data/test/orig.png",
+    "distorted_image_path": "tests/data/test/compressed.png",
+    "output_directory": "test_output_all",
+    "output_filename": "metrics.csv",
+    "generate_maps": true,
+    "generate_metrics": true,
+    "generate_image_difference": true,
+    "difference_threshold": 10,
+    "metrics": ["MSE", "SSIM", "FSIM", "MS-SSIM", "PSNR", "VSI", "SR-SIM", "MS-GMSD", "LPIPS", "PieAPP", "DISTS", "MDSI", "DSS", "IW-SSIM", "VIFp", "GMSD", "HaarPSI", "BRISQUE", "NIQE", "MUSIQ", "NIMA", "CLIPIQA", "PHASH"],
+    "color_spaces": ["RGB", "HSV", "HLS", "LAB", "XYZ", "LUV", "YCrCb", "YUV"],
+    "map_window_size": 11,
+    "map_step_size": 5
+}

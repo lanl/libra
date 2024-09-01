@@ -16,12 +16,15 @@ class TestLibra(unittest.TestCase):
         '''
         Making sure that some core metrics are the same
         '''
-        
-        results = libra.compute_metrics(self.cmp_path, self.ref_path, ['SSIM', 'MSE'], ['RGB', 'HSV', 'LAB'])
-        expected_results = [{'Metric': 'SSIM', 'RGB': 0.8878801465034485, 'HSV': 0.9144885540008545, 'LAB': 0.9379053115844727}, 
-                            {'Metric': 'MSE', 'RGB': 9963.424492668622, 'HSV': 9203.078399664852, 'LAB': 11965.944987850859}]
-        
-        self.assertEqual(results, expected_results)
+        precomputed_results = [0.8878801465034485, 0.9144885540008545, 0.9379053115844727, 9963.424492668622, 9203.078399664852, 11965.944987850859]
+        results = []
+        metric_names = ['SSIM', 'MSE']
+        colorspace_names = ['RGB', 'HSV', 'LAB']
+        for metric_name in metric_names:
+            for colorspace_name in colorspace_names:
+                results.append( libra.compute_metric(self.cmp_path, self.ref_path, metric_name, colorspace_name) )
+
+        self.assertTrue(results == precomputed_results)
 
         
     def test_image_comparison(self):
@@ -59,19 +62,19 @@ class TestLibra(unittest.TestCase):
         
         # Compute Maps
         plt_mse  = libra.compute_map(self.cmp_path, self.ref_path, 'MSE', 'HSV', patch_size=11, step=50)
-        plt_mse.savefig(f"./temp_hsv_mse.png")
+        plt_mse.savefig(f"temp_hsv_mse.png")
         plt_mse.close()
         
         plt_ssim = libra.compute_map(self.cmp_path, self.ref_path, 'SSIM', 'HSV', patch_size=11, step=50)
-        plt_ssim.savefig(f"./temp_hsv_ssim.png")
+        plt_ssim.savefig(f"temp_hsv_ssim.png")
         plt_ssim.close()
         
         # Reload and compare
-        map_hsv_mse_computed  = libra.load_image("./temp_hsv_mse.png")
-        map_hsv_ssim_computed = libra.load_image("./temp_hsv_ssim.png")
+        map_hsv_mse_computed  = libra.load_image("temp_hsv_mse.png")
+        map_hsv_ssim_computed = libra.load_image("temp_hsv_ssim.png")
         
-        os.remove("./temp_hsv_mse.png")
-        os.remove("./temp_hsv_ssim.png")
+        os.remove("temp_hsv_mse.png")
+        os.remove("temp_hsv_ssim.png")
         
         self.assertTrue( libra.is_same(map_hsv_mse, map_hsv_mse_computed) )
         self.assertTrue( libra.is_same(map_hsv_ssim, map_hsv_ssim_computed) )

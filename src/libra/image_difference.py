@@ -10,7 +10,7 @@ import cv2
 from .utils import *
 
 
-def diff_images(image1_path, image2_path, threshold, color_space_name, color_channels=None):
+def diff_images(image1_path, image2_path, threshold, color_space_name, colormap_name='JET', color_channels=None):
     """
     Load two images, convert them to the specified color space, calculate the difference,
     and apply a threshold to highlight significant differences
@@ -20,6 +20,7 @@ def diff_images(image1_path, image2_path, threshold, color_space_name, color_cha
         image2_path (str): The path to the second image file.
         threshold (int): The threshold value to apply for highlighting differences.
         color_space_name (str): name of the color space to use
+        colormap_name (str, optional) : name of the color map for the difference
         color_channels (tuple or None, optional): A tuple specifying the color channels to use for calculating the difference.
             If None, all color channels are used.
 
@@ -34,6 +35,13 @@ def diff_images(image1_path, image2_path, threshold, color_space_name, color_cha
     color_space_code = get_color_space_code(color_space_name)
     image1 = load_and_convert_image(image1_path, color_space_code)
     image2 = load_and_convert_image(image2_path, color_space_code)
+    
+    colormap = color_maps['JET']
+    if colormap_name in color_maps:
+        colormap = color_maps[colormap_name]
+    else:
+        print(f"{colormap_name} colormap does not exist. JET will be used!")
+
 
     if color_channels is None:
         # Calculate the absolute difference between the images
@@ -54,8 +62,8 @@ def diff_images(image1_path, image2_path, threshold, color_space_name, color_cha
     equalized_diff = cv2.equalizeHist(diff_gray)
 
     # Apply a colormap to visualize the difference
-    heatmap = cv2.applyColorMap(diff_gray, cv2.COLORMAP_JET)
-    heatmapEq = cv2.applyColorMap(equalized_diff, cv2.COLORMAP_JET)
+    heatmap = cv2.applyColorMap(diff_gray, colormap)
+    heatmapEq = cv2.applyColorMap(equalized_diff, colormap)
     
     return heatmap, heatmapEq
 

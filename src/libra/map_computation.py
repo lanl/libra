@@ -100,7 +100,7 @@ def compute_patchwise_metric(im1, im2, patch_size, step, metric_fn):
 
 
 
-def compute_map(dist_path, ref_path, metric_name, color_space, patch_size=161, step=50):
+def compute_map(dist_path, ref_path, metric_name, color_space, patch_size=161, step=50, colormap='gray'):
     """
     Generate metric maps for the given images, metrics, and color spaces, and save them to files.
 
@@ -111,12 +111,14 @@ def compute_map(dist_path, ref_path, metric_name, color_space, patch_size=161, s
         color_space (str): name of the color space
         patch_size (int, optional): The size of the patches to compute the metrics on. Default is 161.
         step (int, optional): The step size between patches. Default is 50.
+        colormap (str, optional) : Name of the colormap to show the difference in matplotlib
         
     Return:
         plot (matplotlib)
     """
     img1 = load_image(dist_path)
     img2 = load_image(ref_path)
+    
     
     img2 = cv2.resize(img2, (img1.shape[1], img1.shape[0]))
     
@@ -133,21 +135,21 @@ def compute_map(dist_path, ref_path, metric_name, color_space, patch_size=161, s
     try:
         if metric_name == "SSIM":
             ssim_value, ssim_map = compute_ssim_map(img1_cs, img2_cs)
-            im = plt.imshow(ssim_map, cmap='gray')
+            im = plt.imshow(ssim_map, cmap=colormap)
             plt.title(f'SSIM ({color_space})')
         elif metric_name == "MSE":
             mse_map = compute_mse_map(img1_cs, img2_cs)
-            im = plt.imshow(mse_map, cmap='hot')
+            im = plt.imshow(mse_map, cmap=colormap)
             plt.title(f'MSE ({color_space})')
         elif metric_name in ["BRISQUE", "NIQE", "MUSIQ", "NIMA", "CLIPIQA"]:
             # No-reference metrics, compute on img1 only
             metric_map = compute_patchwise_metric(img1_cs, None, patch_size, step, metric_fn)
-            im = plt.imshow(metric_map, cmap='plasma')
+            im = plt.imshow(metric_map, cmap=colormap)
             plt.title(f'{metric_name} ({color_space})')
         else:
             # Full-reference metrics
             metric_map = compute_patchwise_metric(img1_cs, img2_cs, patch_size, step, metric_fn)
-            im = plt.imshow(metric_map, cmap='viridis')
+            im = plt.imshow(metric_map, cmap=colormap)
             plt.title(f'{metric_name} ({color_space})')
 
         plt.axis('off')

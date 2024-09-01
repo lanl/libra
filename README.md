@@ -45,7 +45,7 @@ Note: some dependecies are not available through conda. We recommend using virtu
 
 A command line interface is provided, that is accessive as follows:
 ```
-python libra/main.py -h
+python src/app.py -h
 ```
 
 There are three modes to use the tool:
@@ -93,7 +93,7 @@ Here is an example of a JSON configuration, also available in the samples folder
 
 It can be run from the home directory as follows:
 ```
-python src/main.py -j samples/sample_input.json
+python src/app.py -j samples/sample_input.json
 ```
 
 ### Command Line
