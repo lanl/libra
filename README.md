@@ -1,6 +1,6 @@
 # Project Libra
 
-<img src="./doc/img/libra_icon.png" alt="Example 2" style="max-width: 100%; height: 50;">
+<img src="./doc/img/libra_icon.png" alt="Icon" style="width: 50; height: 50;">
 
 ### Overview
 This project provides tools to compute various image quality assessment (IQA) metrics. 
