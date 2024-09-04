@@ -1,0 +1,14 @@
+{
+    "reference_image_path": "tests/data/test/orig.png",
+    "distorted_image_path": "tests/data/test/compressed.png",
+    "output_directory": "test_output",
+    "output_filename": "metrics.csv",
+    "generate_maps": true,
+    "generate_metrics": true,
+    "generate_image_difference": true,
+    "difference_threshold": 10,
+    "metrics": ["PSNR", "SSIM", "VSI", "GMSD", "MSE", "DSS"],
+    "color_spaces": ["RGB", "HSV", "LAB"],
+    "map_window_size": 161,
+    "map_step_size": 50
+}

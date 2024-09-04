@@ -1,10 +1,11 @@
 # Project Libra
+<img src="./doc/img/libra_icon.png" alt="Icon" style="width: 50px; height: 50px;">
 
 ### Overview
-This project provides tools to compute various image quality assessment (IQA) metrics. 
+This project provides tools to compute various image quality assessment (IQA) metrics.
 
 ## Features
-- **Compute Image Quality Assesment Metrics**: Assessment quality with multiple full and no reference metrics
+- **Compute Image Quality Assessment Metrics**: Assessment quality with multiple full and no reference metrics
 - **Multiple Color Spaces**: Support for different color spaces (e.g., RGB, HSV) to assess image quality in various domains.
 - **Heatmaps Generation**: Generate metric maps visualizing the spatial distribution of metric values across the image
 - **Image Difference**: Generate thresholded difference images to highlight significant differences between two images
@@ -35,11 +36,21 @@ git clone https://github.com/lanl/libra
 pip install opencv-python-headless numpy matplotlib scikit-image torch piq pyiqa ImageHash
 ```
 
-Note: some dependecies are not available through conda. We recommend using virtual environments for now.
+Note: some dependencies are not available through conda. We recommend using virtual environments for now.
 
 ## Usage
 
-### Set up json configuration
+A command line interface is provided, that is accessive as follows:
+```
+python src/app.py -h
+```
+
+There are three modes to use the tool:
+- using a JSON file
+- using the command line interface
+- as a library
+  
+### JSON
 
 The JSON configuration file should contain the following keys:
 
@@ -58,40 +69,43 @@ The JSON configuration file should contain the following keys:
 
 ---
 
-Here is an example of the JSON configuration found in samples:
+Here is an example of a JSON configuration, also available in the samples folder:
 
 ```json
 {
-    "reference_image_path": "samples/data/test3/orig.png",
-    "distorted_image_path": "samples/data/test3/compressed.png",
-    "output_directory": "output_compression",
+    "reference_image_path": "tests/data/test/orig.png",
+    "distorted_image_path": "tests/data/test/compressed.png",
+    "output_directory": "test_output",
     "output_filename": "metrics.csv",
-    "generate_metrics": true,
     "generate_maps": true,
-    "generate_image_difference":true,
-    "difference_threshold": 100,
-    "metrics": ["SSIM", "VSI", "GMSD", "MSE", "DSS"],
-    "color_spaces": ["RGB", "HSV"],
-    "map_window_size": 11,
-    "map_step_size": 30
+    "generate_metrics": true,
+    "generate_image_difference": true,
+    "difference_threshold": 10,
+    "metrics": ["PSNR", "SSIM", "VSI", "GMSD", "MSE", "DSS"],
+    "color_spaces": ["RGB", "HSV", "LAB"],
+    "map_window_size": 161,
+    "map_step_size": 50
 }
 ```
 
-Run following command to compute:
+It can be run from the home directory as follows:
 ```
-python libra/main.py samples/sample.json
+python src/app.py -j samples/sample_input.json
 ```
 
+### Command Line
+The command line interface is useful for quick comparisons between two images. It can be used e.g. as
+```
+python src/main.py -r tests/data/test/orig.png -c tests/data/test/compressed.png -m SSIM -p
+```
 
-A command line innterface is also provided, type:
-```
-python libra/main.py -h
-```
-for more information.
+### Library
+Refer to the example.ipynb notebook in the samples folder
+
 
 ## Example Usage
 
-This example evaluates the visualization quality of isotropic turbulence dataset subjected to tensor compression with a maximum Peak Signal-to-Noise Ratio (PSNR) of 40. The assessment focuses on how effectively the tensor compression retains the visual fidelity of the turbulence data.
+This example evaluates the visualization quality of an isotropic turbulence dataset subjected to tensor compression with a maximum Peak Signal-to-Noise Ratio (PSNR) of 40. The assessment focuses on how effectively the tensor compression retains the visual fidelity of the turbulence data.
 
 **References**\
 **Dataset**: https://klacansky.com/open-scivis-datasets/\
@@ -119,7 +133,7 @@ This example evaluates the visualization quality of isotropic turbulence dataset
 <img src="./doc/img/map_HSV.png" alt="Example 2" style="max-width: 100%; height: auto;">
 
 
-### Compatible Color Spaces
+# Supported Color Spaces
 
 | **Color Space** | **Description** |
 |-----------------|------------------------------------------------------------------------------------------------------|
@@ -133,7 +147,7 @@ This example evaluates the visualization quality of isotropic turbulence dataset
 | [YUV](https://en.wikipedia.org/wiki/YUV)                 | Used in analog television and some digital video formats. Separates image into luminance (Y) and chrominance (U and V). |
 
 
-## Image Quality Assesment Metrics
+## Image Quality Assessment Metrics
 
 ### Full Reference Metrics
 
