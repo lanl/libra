@@ -187,3 +187,5 @@ This example evaluates the visualization quality of an isotropic turbulence data
 | [NIMA](https://ieeexplore.ieee.org/document/8352823) | pyiqa | Neural Image Assessment. A deep learning-based model that predicts the aesthetic and technical quality of images. | Range: [0, 10]. <br /> Higher values indicate better quality. | 
 
 
+# Cinema Database
+This [cinema database](https://lanl.github.io/libra/) shows the results of a small lossy compression study.
