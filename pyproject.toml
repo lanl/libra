@@ -2,7 +2,7 @@
 name = "libra"
 version = "0.1"
 authors = [
-  { name="Yanni Etchi", email="author@example.com" },
+  { name="Yanni Etchi", email="yannietchi@gmail.com" },
   { name="Pascal Grosset", email="pascalgrosset@lanl.gov" },
 ]
 description = "Compare images"
@@ -16,3 +16,4 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/lanl/libra"
+

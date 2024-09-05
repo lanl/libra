@@ -2,15 +2,13 @@
 <img src="./doc/img/libra_icon.png" alt="Icon" style="width: 50px; height: 50px;">
 
 ### Overview
-This project provides tools to compute various image quality assessment (IQA) metrics.
+This project provides tools to compare image using different image metrics and color space
 
 ## Features
 - **Compute Image Quality Assessment Metrics**: Assessment quality with multiple full and no reference metrics
-- **Multiple Color Spaces**: Support for different color spaces (e.g., RGB, HSV) to assess image quality in various domains.
-- **Heatmaps Generation**: Generate metric maps visualizing the spatial distribution of metric values across the image
 - **Image Difference**: Generate thresholded difference images to highlight significant differences between two images
-- **Configurable via JSON**: Flexible configuration through JSON files for specifying image paths, metrics, color spaces, and output options.
-
+- **Heatmaps Generation**: Generate metric maps visualizing the spatial distribution of metric values across the image
+  
 It supports:
 - 18 [full-reference](#full-reference-metrics)
 - 5 [no-reference](#no-reference-metrics)
@@ -145,6 +143,34 @@ This example evaluates the visualization quality of an isotropic turbulence data
 | [LUV](https://en.wikipedia.org/wiki/CIELUV)              | Similar to LAB but with a different chromaticity component. Used in color difference calculations and image analysis.  |
 | [YCbCr](https://en.wikipedia.org/wiki/YCbCr)             | Color space used in video compression. Separates the image into luminance (Y) and chrominance (Cb and Cr) components. |
 | [YUV](https://en.wikipedia.org/wiki/YUV)                 | Used in analog television and some digital video formats. Separates image into luminance (Y) and chrominance (U and V). |
+
+
+# OpenCV Color Maps
+ - AUTUMN
+ - BONE
+ - JET
+ - WINTER
+ - RAINBOW
+ - OCEAN
+ - SUMMER
+ - SPRING
+ - COOL
+ - HSV
+ - PINK
+ - HOTb
+ - PARULA
+ - MAGMA
+ - INFERNO
+ - PLASMA
+ - VIRIDIS
+ - CVIRIDIS
+ - TWILIGHT
+ - TWILIGHT_SHILFTED
+ - TURBO
+ - DEEPGREEN
+
+
+# Matplotlib Color Maps
 
 
 ## Image Quality Assessment Metrics

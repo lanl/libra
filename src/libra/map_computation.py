@@ -100,7 +100,7 @@ def compute_patchwise_metric(im1, im2, patch_size, step, metric_fn):
 
 
 
-def compute_map(dist_path, ref_path, metric_name, color_space, patch_size=161, step=50, colormap='gray'):
+def compute_map(dist_path, ref_path, metric_name='SSIM', color_space='HSV', patch_size=161, step=50, colormap='gray'):
     """
     Generate metric maps for the given images, metrics, and color spaces, and save them to files.
 

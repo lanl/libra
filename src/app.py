@@ -145,7 +145,11 @@ def main(argv):
         
     options =  generate_metrics or generate_maps or generate_image_difference
     if options == False:
-        sys.exit("One or more of metrics or image difference or map difference must be selected!")
+        generate_metrics = True
+        map_metrics = ['SSIM']
+        color_spaces_to_use = ['LAB']
+        print('No option was selected, we will default to using SSIM for comaparing the images in the LAB color space')
+
         
     
     if run_mode == "JSON":

@@ -10,7 +10,7 @@ import cv2
 from .utils import *
 
 
-def diff_images(image1_path, image2_path, threshold, color_space_name, colormap_name='JET', color_channels=None):
+def diff_images(image1_path, image2_path, threshold=0, color_space_name='HSV', colormap_name='JET', color_channels=None):
     """
     Load two images, convert them to the specified color space, calculate the difference,
     and apply a threshold to highlight significant differences

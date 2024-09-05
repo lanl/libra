@@ -2,7 +2,7 @@ from .utils import *
 from .metrics import *
 
 
-def compute_metric(dist_path, ref_path, metric_name, color_space_name):
+def compute_metric(dist_path, ref_path, metric_name='SSIM', color_space_name='LAB'):
     """
     Compute the specified IQA metrics for the given images and color spaces.
 
