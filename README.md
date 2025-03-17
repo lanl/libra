@@ -218,3 +218,8 @@ This [cinema database](https://lanl.github.io/libra/) shows the results of a sma
 
 # Publication
 Yanni Etchi, Daoce Wang, Pascal Grosset, Terece L. Turton, James Ahrens, and David Rogers. 2025. An Exploration of How Volume Rendering is Impacted by Lossy Data Reduction. In Proceedings of the SC '24 Workshops of the International Conference on High Performance Computing, Network, Storage, and Analysis (SC-W '24). IEEE Press, 250–259. [https://lanl.github.io/libra/](https://lanl.github.io/libra/)
+
+# Funding
+This material is based upon work supported by: 
+- the Computational Systems and Software Environments subprogram of Los Alamos National Laboratory’s Advanced Simulation and Computing program (NNSA/DOE) under the Visualization Research & Development initiative
+- the U.S. Department of Energy, Office of Science and Office of Advanced Scientific Computing Research, Scientific Discovery through Advanced Computing (SciDAC) program. 
