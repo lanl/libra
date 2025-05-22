@@ -219,7 +219,7 @@ This [cinema database](https://lanl.github.io/libra/) shows the results of a sma
 # Publication
 Y. Etchi, D. Wang, P. Grosset, T. L. Turton, J. Ahrens and D. Rogers, "An Exploration of How Volume Rendering is Impacted by Lossy Data Reduction," SC24-W: Workshops of the International Conference for High Performance Computing, Networking, Storage and Analysis, Atlanta, GA, USA, 2024, pp. 250-259, doi: 10.1109/SCW63240.2024.00040. 
 
-The paper is available [here](paper.pdf)
+[Read](paper.pdf) the paper or [download it](https://github.com/lanl/libra/raw/main/paper.pdf)
 
 # Funding
 This material is based upon work supported by: 
